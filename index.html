@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+	Written by Havi Sullivan <http://havisullivan.com>
+	HTML, CSS, JavaScript portions licensed CC0
+	Images and item data (c) ArenaNet
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Guild Wars 2 API Demo</title>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+	<script src="gw2api.js"></script>
+	<link rel="stylesheet" href="gw2api.css">
+</head>
+<body>
+	<table id="itemtable">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Level</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="3"><span class="pager"></span></td>
+			</tr>
+		</tfoot>
+	</table>
+	<div class="insert-point"></div>
+	<div class="item-detail-template" style="display:none">
+		<span class="item-id"></span>
+		<h3><div class="item-icon"></div><div class="item-name"></div></h3>
+		<span class="item-game-types"></span>
+		<span class="item-restrictions"></span>
+		<span class="item-crafting-material"></span>
+		
+		<div class="stats">
+			<span class="damage-type"></span>
+			<p class="weight-class"></p>
+			<p class="weapon-strength">Weapon Strength: <span class="min-power"></span> - <span class="max-power"></span></p>
+			<p class="weapon-armor-defense">Defense: <span class="defense"></span></p>
+			<p class="buff"></p>
+			<p class="attributes"></p>
+			<p class="infusion-slots"></p>
+		</div>
+		
+		<div class="upgrade">
+			<p class="upgrade-name"></p>
+			<span class="upgrade-rarity"></span>
+			<p class="upgrade-buff"></p>
+			<p class="upgrade-attributes"></p>
+		</div>
+
+		<p class="item-rarity"></p>
+		<p class="item-type"></p>
+		<p>Required Level: <span class="item-level"></span></p>
+		<p class="item-description"></p>
+		<p class="item-flags"></p>
+		<p class="item-value"></p>
+	</div>
+	<div class="notes">
+		<p>Known issues:</p>
+		<ul>
+			<li><strong>Doesn't work in Internet Explorer &lt;10</strong> due to <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank">CORS</a> limitations.</li>
+			<li>Performance will be impacted in older browsers that don't support <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/DOM/Storage" target="_blank">local storage</a>.</li>
+			<li>Uses generic icons for categories of items since there's no appearance data in API.</li>
+			<li>Chat link tags will appear only in certain browsers (dependent on <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.btoa" target="_blank">window.btoa</a>).</li>
+			<li>Some weapons and armor are missing attribute bonuses (API deficiency). Seems to mostly affect named exotics from PvP sets.</li>
+			<li>No search/sort. (Partly an API deficiency but could be mitigated if I chose to manipulate data locally.)</li>
+		</ul>
+		<p><a href="https://github.com/blitterfly/gw2api-demo">Download the code.</a></p>
+	</div>
+	<script>
+		$('#itemtable').gw2items({
+			details: '.item-detail-template',
+			insertAt: '.insert-point',
+			pageSize: 25
+		});
+	</script>
+</body>
+</html>

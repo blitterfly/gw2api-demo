@@ -1,0 +1,111 @@
+$rarity: junk basic fine masterwork rare exotic ascended legendary;
+$rarity-color: #999 #fff #62a4da #1a9306 #fcd00b #ffa405 #fb3e8d #9960ea;
+$color-positive: #28ec28;
+$sub-items-armor: boots coat gloves helm leggings shoulders;
+$sub-items-trinkets: accessory amulet ring;
+$sub-items-upgrades: gem rune sigil;
+$sub-items-weapons: axe dagger focus greatsword hammer harpoon long-bow mace pistol rifle scepter shield short-bow speargun staff sword torch trident warhorn;
+$sub-items: zip($sub-items-armor, $sub-items-trinkets, $sub-items-upgrades, $sub-items-weapons);
+$items: back bag container consumable crafting-material gizmo mini-pet toy;
+
+#itemtable {
+	float: left;
+	background: url(images/bg.png);
+	background-size: cover;
+	color: #ddd;
+	border-collapse: collapse;
+	font-family: Arial, sans-serif; font-size: 14px;
+	text-shadow: 1px 1px 1px #000;
+	
+	tbody tr:nth-child(odd) { background: rgba(128, 128, 128, 0.5); }
+	th { padding: 3px; text-align: left; font-weight: bold; }
+	td { padding: 3px; }
+	tfoot tr {
+			background: #fff; 
+			td { padding: 10px 3px 3px 3px; color: #000; text-shadow: none; }
+	}
+	
+	@for $r from 1 through length($rarity) {
+		.item-rarity-#{nth($rarity, $r)} a:link, .item-rarity-#{nth($rarity, $r)} a:visited { color: #{nth($rarity-color, $r)}; text-decoration: none; }
+		.item-rarity-#{nth($rarity, $r)} a:hover, .item-rarity-#{nth($rarity, $r)} a:active { text-decoration: underline; }
+	}
+}
+
+.item-detail-template {
+	float: left;
+	margin: 0 0 0 24px;
+	background: url(images/bg.png);
+	background-size: cover;
+	color: #ddd;
+	border: 1px solid #000;
+	padding: 0 4px 8px 4px;
+	font-family: Arial, sans-serif; font-size: 14px;
+	text-shadow: 1px 1px 1px #000;
+	width: 300px;
+	
+	@for $r from 1 through length($rarity) {
+		&.item-rarity-#{nth($rarity, $r)} .item-name { color: #{nth($rarity-color, $r)}; }
+	}
+
+	h3 {
+		font-weight: bold; font-size: 14px; line-height: 18px; margin: 16px 0 0 0; padding: 0 0 0 0;
+	}
+	.item-icon {
+		display: inline-block; width: 32px; height: 32px; border: 1px solid #858585; margin: 0 5px 0 0; vertical-align: middle;
+		background-repeat: no-repeat; background-position: left center; background-size: 32px 32px;
+		background-image: url(images/broken-egg.png);		
+	}
+	.item-name {
+		width: 300px - 32px - 2px - 5px; height: auto; display: inline-block; vertical-align: middle;
+	}
+	.item-description { color: #a3cbc2; }
+	.stats {
+		margin: 0 0 16px 0;
+		
+		.weapon-strength, .weight-class, .weapon-armor-defense { display: none; }
+		.buff, .min-power, .max-power, .defense { color: $color-positive; }
+		.damage-type { display: none; }
+		.attributes .attribute { display: block; color: $color-positive; }
+	}
+	&.item-type-weapon .stats {
+		.weapon-strength, .weapon-armor-defense { display: block; }
+	}
+	&.item-type-armor .stats {
+		.weight-class, .weapon-armor-defense { display: block; }
+	}
+	&.item-subtype-food .stats {
+		.buff { color: #ddd; }
+	}
+	
+	.item-id, .item-game-types, .item-restrictions, .item-crafting-material { display: none; }
+	p { line-height: 1; margin: 2px 0 0 0; padding: 0; }
+	.item-value {
+		span { padding: 0 14px 0 4px; background-repeat: no-repeat; background-position: right bottom; background-size: 12px 12px; }
+		.item-value-gold { color: #f4c767; background-image: url(images/gold-coin.png); }
+		.item-value-silver { color: #c6c6c6; background-image: url(images/silver-coin.png); }
+		.item-value-copper { color: #a95d21; background-image: url(images/copper-coin.png); }
+	}
+	
+	.upgrade {
+		margin: 0 0 16px 0;
+		
+		.upgrade-rarity { display: none; }
+		
+		@for $r from 1 through length($rarity) {
+			&.upgrade-rarity-#{nth($rarity, $r)} {
+			 	.upgrade-name, .upgrade-attributes .upgrade-attribute { color: #{nth($rarity-color, $r)}; }
+			}
+		}
+		
+		.upgrade-attributes .upgrade-attribute { display: block; }
+	}
+	
+	@each $w in $sub-items {
+		&.item-subtype-#{$w} .item-icon { background-image: url(images/#{$w}.png); }
+	}
+	@each $x in $items {
+		&.item-type-#{$x} .item-icon { background-image: url(images/#{$x}.png); }
+	}
+}
+
+.notes { clear: left; font-family: Arial, sans-serif; font-size: 14px; padding: 32px 0 0 0; }
