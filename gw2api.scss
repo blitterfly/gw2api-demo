@@ -5,7 +5,7 @@ $sub-items-armor: boots coat gloves helm leggings shoulders;
 $sub-items-trinkets: accessory amulet ring;
 $sub-items-upgrades: gem rune sigil;
 $sub-items-weapons: axe dagger focus greatsword hammer harpoon long-bow mace pistol rifle scepter shield short-bow speargun staff sword torch trident warhorn;
-$sub-items: zip($sub-items-armor, $sub-items-trinkets, $sub-items-upgrades, $sub-items-weapons);
+$sub-items: join($sub-items-armor, join($sub-items-trinkets, join($sub-items-upgrades, $sub-items-weapons)));
 $items: back bag container consumable crafting-material gizmo mini-pet toy;
 
 #itemtable {
