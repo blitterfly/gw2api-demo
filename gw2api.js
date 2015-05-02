@@ -322,6 +322,9 @@
 	
 	// strips HTML from input, preserving BR tags
 	function stripHtml(input) {
+		if (typeof input === 'undefined') {
+			return '';
+		}
 		// note this is not a good way to do this with normal HTML, but works for GW2's item db
 		var stripped = input.replace(/<br>/ig, '\n');
 		stripped = stripped.replace(/(<([^>]+)>)/ig, '');
